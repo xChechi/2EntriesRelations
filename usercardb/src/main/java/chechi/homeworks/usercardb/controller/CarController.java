@@ -2,12 +2,9 @@ package chechi.homeworks.usercardb.controller;
 
 import chechi.homeworks.usercardb.dto.CarRequest;
 import chechi.homeworks.usercardb.dto.CarResponse;
-import chechi.homeworks.usercardb.dto.UserResponse;
 import chechi.homeworks.usercardb.entity.Car;
 import chechi.homeworks.usercardb.entity.User;
-import chechi.homeworks.usercardb.repository.UserRepository;
 import chechi.homeworks.usercardb.service.CarService;
-import chechi.homeworks.usercardb.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,20 +31,18 @@ public class CarController {
     public ResponseEntity<CarResponse> getCar (@PathVariable int carId) {
 
         return ResponseEntity.status(HttpStatus.FOUND).body(carService.getCarById(carId));
-
     }
 
-        @PostMapping("/{id}/cars")
-        public ResponseEntity<String> postCar (@PathVariable int id, @Valid @RequestBody CarRequest request) {
+    @PostMapping("/{id}/cars")
+    public ResponseEntity<String> postCar (@PathVariable int id, @Valid @RequestBody CarRequest request) {
 
-            CarResponse carResponse = carService.addCar(id, request);
+        CarResponse carResponse = carService.addCar(id, request);
 
-            String response = String.format("%s %s was created",
-                    carResponse.getMake(), carResponse.getModel());
+        String response = String.format("%s %s was created",
+                carResponse.getMake(), carResponse.getModel());
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 
     @DeleteMapping("/{id}/cars/{carId}")
     public HttpStatus deleteCar (@PathVariable int carId) {

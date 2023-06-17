@@ -1,6 +1,6 @@
 package chechi.homeworks.usercardb.dto;
 
-import chechi.homeworks.usercardb.entity.User;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -23,6 +23,7 @@ public class CarRequest {
     @NotBlank
     private String plate;
 
+    @NotNull
     private int userId;
 
 
