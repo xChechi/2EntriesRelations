@@ -69,4 +69,5 @@ public class UserServiceImpl implements UserService {
 
         return userConverter.toUserResponse(userRepository.save(user));
     }
+
 }

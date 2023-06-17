@@ -53,12 +53,6 @@ public class UserController {
     public ResponseEntity<UserResponse> updateUser(@PathVariable int id, @Valid @RequestBody UserUpdateRequest request) {
 
         UserResponse response = userService.updateUser(id,request);
-/*
-        if(!(response.getError() == null)) {
-            UserResponse errorResponse = new UserResponse("Email already exist in our database");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-        }
-       */
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

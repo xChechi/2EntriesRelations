@@ -8,8 +8,8 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@Data
-@ToString
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +29,9 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Car> cars;
+
 
 }
