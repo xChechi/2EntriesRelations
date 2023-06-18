@@ -18,6 +18,6 @@ public interface CarService {
 
     CarResponse addCar(int id, CarRequest request);
 
-    CarRequest updateCar (CarRequest request);
+    CarResponse updateCar (int id, CarRequest request);
 
 }

@@ -5,6 +5,7 @@ import chechi.homeworks.usercardb.dto.CarRequest;
 import chechi.homeworks.usercardb.dto.CarResponse;
 import chechi.homeworks.usercardb.entity.Car;
 import chechi.homeworks.usercardb.entity.User;
+import chechi.homeworks.usercardb.exception.CarNotFoundException;
 import chechi.homeworks.usercardb.repository.CarRepository;
 import chechi.homeworks.usercardb.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarResponse getCarById(int id) {
-        Car car = carRepository.findById(id).orElseThrow();
+        Car car = carRepository.findById(id).orElseThrow(() -> { throw new CarNotFoundException( "Car with ID " + id + " not found."); });
         return carConverter.toCarResponse(car);
     }
 
@@ -45,14 +46,20 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarRequest updateCar(CarRequest request) {
-        return null;
+    public CarResponse updateCar(int id, CarRequest request) {
+
+        Car car = carRepository.findById(id).orElseThrow(() -> { throw new CarNotFoundException( "Car with ID " + id + " not found."); });
+
+        car.setMake(request.getMake());
+        car.setModel(request.getModel());
+        car.setVin(request.getVin());
+        car.setPlate(request.getPlate());
+
+        return carConverter.toCarResponse(carRepository.save(car));
     }
 
     public Set<Car> getCarsByUser(User user) {
         return carRepository.findByUser(user);
     }
-
-
 
 }

@@ -51,5 +51,12 @@ public class CarController {
         return HttpStatus.OK;
     }
 
+    @PutMapping("/{id}/cars/{carId}")
+    public ResponseEntity<CarResponse> updateCar (@PathVariable int carId, @Valid @RequestBody CarRequest request) {
+
+        CarResponse response = carService.updateCar(carId, request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
 }

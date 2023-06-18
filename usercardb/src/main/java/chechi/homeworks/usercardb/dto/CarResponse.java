@@ -1,6 +1,7 @@
 package chechi.homeworks.usercardb.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import lombok.Setter;
 @Setter
 public class CarResponse {
 
+    @NotNull
+    private int id;
 
     @NotBlank
     private String make;

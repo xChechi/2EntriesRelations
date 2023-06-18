@@ -5,6 +5,7 @@ import chechi.homeworks.usercardb.dto.UserRequest;
 import chechi.homeworks.usercardb.dto.UserResponse;
 import chechi.homeworks.usercardb.dto.UserUpdateRequest;
 import chechi.homeworks.usercardb.entity.User;
+import chechi.homeworks.usercardb.exception.UserNotFoundException;
 import chechi.homeworks.usercardb.repository.UserRepository;
 import chechi.homeworks.usercardb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse getUserById(int id) {
-        User user = userRepository.findById(id).orElseThrow(); //<----- Add new throw
+        User user = userRepository.findById(id).orElseThrow(() -> { throw new UserNotFoundException( "User with ID " + id + " not found."); });
         return userConverter.toUserResponse(user);
     }
 
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse updateUser(int id, UserUpdateRequest request) {
 
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).orElseThrow(() -> { throw new UserNotFoundException( "User with ID " + id + " not found."); });
 
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
